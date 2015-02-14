@@ -139,7 +139,9 @@ Crafty.c("Canvas", {
         }
 
         this.drawVars.ctx = context;
+        this.trigger("PreDraw", this.drawVars);
         this.trigger("Draw", this.drawVars);
+        this.trigger("PostDraw", this.drawVars);
 
         // If necessary, restore context
         if (this._rotation !== 0 || (this._flipX || this._flipY)) {
