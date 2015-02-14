@@ -206,11 +206,15 @@ Crafty.c("DOM", {
             style[prefix + "Transform"] = this._cssStyles.transform;
         }
 
-        this.trigger("Draw", {
+        var drawVars = {
             style: style,
             type: "DOM",
             co: co
-        });
+        }
+
+        this.trigger("Predraw", drawVars);
+        this.trigger("Draw", drawVars);
+        this.trigger("PostDraw", drawVars);
 
         return this;
     },
