@@ -49,4 +49,12 @@
     ok(e._textColor === "rgba(255, 0, 0, 0.5)");
     e.destroy();
   });
+
+  test("Alignment should be defined", function() {
+    var e = Crafty.e("2D, DOM, Text");
+    ok(e._textAlign === e.defaultTextAlign);
+    e.text("a");
+    e.textAlign('center');
+    ok(e._textAlign === "center");
+  });
 })();
