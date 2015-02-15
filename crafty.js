@@ -6534,7 +6534,7 @@ Crafty.c("DOM", {
             co: co
         };
 
-        this.trigger("Predraw", drawVars);
+        this.trigger("PreDraw", drawVars);
         this.trigger("Draw", drawVars);
         this.trigger("PostDraw", drawVars);
 
@@ -8290,6 +8290,7 @@ Crafty.c("Text", {
     defaultFamily: "sans-serif",
     defaultVariant: "normal",
     defaultLineHeight: "normal",
+    defaultTextAlign: "left",
     ready: true,
 
     init: function () {
@@ -8302,6 +8303,7 @@ Crafty.c("Text", {
             "family": this.defaultFamily,
             "variant": this.defaultVariant
         };
+        this._textAlign = this.defaultTextAlign;
 
         this.bind("Draw", function (e) {
             var font = this._fontString();
@@ -8312,6 +8314,7 @@ Crafty.c("Text", {
 
                 style.color = this._textColor;
                 style.font = font;
+                style.textAlign = this._textAlign;
                 el.innerHTML = this._text;
             } else if (e.type === "canvas") {
                 var context = e.ctx;
@@ -8321,6 +8324,7 @@ Crafty.c("Text", {
                 context.textBaseline = "top";
                 context.fillStyle = this._textColor || "rgb(0,0,0)";
                 context.font = font;
+                context.textAlign = this._textAlign;
 
                 context.fillText(this._text, e.pos._x, e.pos._y);
 
@@ -8440,6 +8444,19 @@ Crafty.c("Text", {
     },
 
     /**@
+     * @comp Text
+     * @sign public this .textAlign(String alignment)
+     * @param alignment - The new alignment of the text.
+     *
+     * Change the alignment of the text. Valid values are 'start', 'end, 'left', 'center', or 'right'.
+     */
+    textAlign: function(alignment) {
+        this._textAlign = alignment;
+        this.trigger("Invalidate");
+        return this;
+    },
+
+    /**@
      * #.textFont
      * @comp Text
      * @triggers Invalidate
@@ -8524,6 +8541,7 @@ Crafty.c("Text", {
     }
 
 });
+
 },{"../core/core.js":6}],30:[function(require,module,exports){
 var Crafty = require('../core/core.js'),
     document = window.document;
