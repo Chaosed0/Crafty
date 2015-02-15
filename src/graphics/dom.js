@@ -210,9 +210,9 @@ Crafty.c("DOM", {
             style: style,
             type: "DOM",
             co: co
-        }
+        };
 
-        this.trigger("Predraw", drawVars);
+        this.trigger("PreDraw", drawVars);
         this.trigger("Draw", drawVars);
         this.trigger("PostDraw", drawVars);
 
