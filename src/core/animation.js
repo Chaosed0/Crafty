@@ -156,10 +156,21 @@ Crafty.c("Tween", {
 		}
 	},
 
-	_doTween: function(props, v){
-		for (var name in props)
-			this[name] = (1-v) * this.tweenStart[name] + v * props[name];
+	_doTween: function(props, v, obj, start){
+        if(obj === undefined) {
+            obj = this;
+        }
+        if(start === undefined) {
+            start = this.tweenStart;
+        }
 
+		for (var name in props) {
+            if(typeof props[name] === 'object' && name in obj) {
+                this._doTween(props[name], v, obj[name], start[name]);
+            } else {
+                obj[name] = (1-v) * start[name] + v * props[name];
+            }
+        }
 	},
 
 
